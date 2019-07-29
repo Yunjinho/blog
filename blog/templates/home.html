@@ -1,0 +1,43 @@
+{% extends 'base.html'%}
+
+{% block contents%}
+
+<br>
+{% for blog in posts %}
+<div class="container">
+<br>
+    <div class="card">
+            <div class="card-body">
+            <h2 class="card-title">제목 : {{blog.title}} </h2>
+            <h6 class="card-subtitle mb-2 text-muted">날짜: {{blog.pub_date}} </h6>
+            <p class="card-text">본문 미리보기 : {{blog.summary}} </p>
+            <a href="{%url 'detail' blog.id%}" type="button" class="btn btn-info">...more </a>
+            </div>
+    </div>
+</div> 
+{%endfor%}
+<nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          {%if posts.has_previous%}
+          <li class="page-item">
+            <a class="page-link" href="?page=1">First</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="?page={{posts.previous_page_number}}">Previous</a>
+          </li>
+          {%endif%}
+          <span>{{posts.number}}</span>
+          <span>of</span>
+          <span>{{posts.paginator.num_pages}}</span>
+          {%if posts.has_next%}
+          <li class="page-item">
+            <a class="page-link" href="?page={{posts.next_page_number}}">Next</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="?page={{posts.paginator.num_pages}}">Last</a>
+          </li>
+          {%endif%}
+        </ul>
+      </nav>
+
+{%endblock%}
